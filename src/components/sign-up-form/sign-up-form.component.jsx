@@ -18,6 +18,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -37,13 +38,13 @@ const SignUpForm = () => {
         email,
         password
       );
-      await createUserDocumentFromAuth(user, { displayName: displayName });
+      await createUserDocumentFromAuth(user, {displayName});
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-user") {
-        alert("Cannot create user, email already in use");
-      } else {
-        console.error(`Errror while creating user: ${error.code}`);
+      switch(error){
+        case (error.code  === "auth/email-already-in-user") : alert("Cannot create user, email already in use");
+        break;
+        default : console.error(`Errror while creating user: ${error}`);
       }
     }
   };
@@ -86,7 +87,7 @@ const SignUpForm = () => {
           onChange={handleChange}
         />
 
-        <Button type="submit" children="Sign in"/>
+        <Button type="submit" children="Sign Up"/>
       </form>
     </div>
   );
