@@ -27,7 +27,7 @@ const SignInForm = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
     try {
-      await signInUserWithEmailAndPassword(email, password);
+      const {user} = await signInUserWithEmailAndPassword(email, password);
       setFormValues(defaultFormFields);
     } catch (e) {
       switch (e.code) {
